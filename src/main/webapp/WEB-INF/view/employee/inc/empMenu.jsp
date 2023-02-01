@@ -6,8 +6,8 @@
 	<a href = "${pageContext.request.contextPath }/employee/empList">사원 관리</a>
 	<!-- 등록시 ID체크(employee + student + teacher) union all -->
 	
-	<a href = "${pageContext.request.contextPath }/teacher/teacherList">강사 관리</a>
-	<!-- 강사 목록, 강사 삭제 -->
+	<a href = "${pageContext.request.contextPath }/teacher/teacherList">선생님 관리</a>
+	<!-- 선생님 목록, 선생님 삭제 -->
 	
 	<a href = "${pageContext.request.contextPath }/student/studentList">학생 관리</a>
 	<!-- 학생 목록, 학생 삭제 -->
