@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.online.mapper.EmployeeMapper">
+<!-- namespace는 인터페이스 이름 -->
+	
+	<!-- employee pw 변경 -->
+	<update id = "updateEmployeePw"
+			parameterType = "java.util.Map">
+		
+		UPDATE employee
+		SET emp_pw = PASSWORD(#{newPw})
+		WHERE emp_no = #{empNo}
+			AND emp_pw = PASSWORD(#{oldPw})		
+			
+	</update>
+	
+	
+	
+	<!-- 로그인 -->
+	<select id="login"
+			parameterType = "goodee.gdj58.online.vo.Employee"
+			resultType = "goodee.gdj58.online.vo.Employee">
+		SELECT
+			emp_no empNo
+			, emp_id empId
+			, emp_name empName
+		FROM employee
+		WHERE emp_id = #{empId}
+			AND emp_pw = PASSWORD(#{empPw})
+			
+	</select>
+	
+	
+	<!-- 사원 삭제 -->
+	<delete id="deleteEmployee"
+			parameterType = "int">
+		
+		DELETE
+		FROM employee
+		WHERE emp_no = #{empNo}
+	
+	
+	</delete>
+	
+	
+	<!-- 사원 등록 -->
+	<insert id="insertEmployee"
+			parameterType="goodee.gdj58.online.vo.Employee">
+	<!-- insert/update/delete 는 자동으로 resultType 이 int로 적용되서 따로 안적어도 된다. -->
+		
+		INSERT INTO employee (
+			emp_id
+			, emp_pw
+			, emp_name
+		) VALUES (
+			#{empId}
+			, PASSWORD(#{empPw})
+			, #{empName}
+		)
+	
+	
+	</insert>			
+
+	<!-- 사원 목록 -->
+	<select id = "selectEmployeeList" 
+			resultType="goodee.gdj58.online.vo.Employee"
+			parameterType = "java.util.Map">
+		<!-- resultType 은 Select 결과의 타입으로 생각하면 됨. 결국 나중에 스프링이 list로 바꿔줌. -->
+		<!--  parameterType 은 인터페이스에 해당되는 메소드의 매개변수 타입 -->
+		SELECT
+			emp_no empNo		
+			, emp_id empId		
+			, emp_name empName
+		FROM employee
+		ORDER BY emp_no DESC
+		LIMIT #{beginRow}, #{rowPerPage} <!-- 매개변수 map 에서 가져온다 -->
+		
+		<!-- getter / setter -->
+		<!-- rs.getInt("emp_no"), new Employee().setEmp_no() -->
+		<!-- setter 안맞아서 alias로 일치 시켜야함 -->
+		<!-- alias 말고 resultmap 태그로 테이블 컬럼 일치 시켜줄 수도 있음. -->
+	</select>
+
+	<!-- 사원 count -->
+	<select id = "countEmployee"
+			resultType = "int">
+	
+		SELECT COUNT(emp_no)
+		FROM employee
+			
+	</select>
+
+</mapper>
+
