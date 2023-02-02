@@ -40,6 +40,11 @@
 			, teacher_id teacherId
 			, teacher_name teacherName
 		FROM teacher
+		<where>
+			<if test="searchWord != null || searchWord != ''">
+				teacher_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
 		ORDER BY teacher_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	
@@ -48,10 +53,16 @@
 
 	<!-- 선생님 Count -->
 	<select id = "countTeacher"
+			parameterType = "java.util.Map"
 			resultType = "int">
 	
 		SELECT count(teacher_no)
 		FROM teacher
+		<where>
+			<if test="searchWord != null || searchWord != ''">
+				teacher_name like CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>		
 			
 	</select>
 

@@ -20,6 +20,6 @@ public interface StudentMapper {
 	List<Student> selectStudentList(Map<String, Object> paramMap);
 	
 	// 학생 count
-	int countStudent();
+	int countStudent(Map<String, Object> paramMap);
 	
 }

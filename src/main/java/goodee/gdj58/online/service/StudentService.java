@@ -35,24 +35,28 @@ public class StudentService {
 	}
 	
 	// 학생 목록
-	public List<Student> getStudentList(int currentPage, int rowPerPage) {
+	public List<Student> getStudentList(int currentPage, int rowPerPage, String searchWord) {
 		
 		int beginRow = Page.getBeginRow(currentPage, rowPerPage);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);		
+		paramMap.put("searchWord", searchWord);		
 		
 		return studentMapper.selectStudentList(paramMap);
 		
 	}
 	
 	// 학생 Page
-	public HashMap<String, Object> getPage(int currentPage, int rowPerPage) {
+	public HashMap<String, Object> getPage(int currentPage, int rowPerPage, String searchWord) {
 		
 		int pageLength = 10;
 		
-		int count = studentMapper.countStudent();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("searchWord", searchWord);
+		
+		int count = studentMapper.countStudent(paramMap);
 		
 		int previousPage = Page.getPreviousPage(currentPage, pageLength);
 		int nextPage = Page.getNextPage(currentPage, pageLength);

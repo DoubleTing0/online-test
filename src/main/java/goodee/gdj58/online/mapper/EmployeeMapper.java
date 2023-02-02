@@ -13,9 +13,6 @@ public interface EmployeeMapper {
 	// 사원 비밀번호 변경
 	int updateEmployeePw(Map<String, Object> paramMap);
 	
-	// 사원 로그인
-	Employee login(Employee employee);
-	
 	// 사원 삭제
 	int deleteEmployee(int empNo);
 	
@@ -26,7 +23,7 @@ public interface EmployeeMapper {
 	List<Employee> selectEmployeeList(Map<String, Object> paramMap);
 	
 	// 사원 count
-	int countEmployee();
+	int countEmployee(Map<String, Object> paramMap);
 	
 }
 

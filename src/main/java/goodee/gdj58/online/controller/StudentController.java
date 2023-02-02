@@ -28,47 +28,32 @@ public class StudentController {
 	private IdService idService;
 	
 	// 학생 삭제 Get
-	@GetMapping("student/removeStudent")
-	public String removeStudent(HttpSession session, Model model
+	@GetMapping("employee/removeStudent")
+	public String removeStudent(Model model
 								, @RequestParam("studentNo") int studentNo) {
-		
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
 		
 		int row = studentService.removeStudent(studentNo);
 		if(row == 0) {
 			// 삭제 실패하면
 			model.addAttribute("errorMsg", "시스템 오류로 삭제 할 수 없습니다.");
-			return "student/studentList";
+			return "employee/student/studentList";
 		}
 		
-		return "redirect:/student/studentList";
+		return "redirect:/employee/studentList";
 		
 	}
 	
 	// 학생 등록 Get
-	@GetMapping("/student/addStudent")
-	public String addStudent(HttpSession session) {
+	@GetMapping("/employee/addStudent")
+	public String addStudent() {
 		
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
-		
-		return "student/addStudent";
+		return "employee/student/addStudent";
 		
 	}
 	
 	// 학생 등록 Post
-	@PostMapping("/student/addStudent")
-	public String addStudent(HttpSession session, Model model, Student student) {
-		
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
+	@PostMapping("/employee/addStudent")
+	public String addStudent(Model model, Student student) {
 		
 		String idCheck = idService.getIdCheck(student.getStudentId());
 		
@@ -76,17 +61,17 @@ public class StudentController {
 		if(idCheck != null) {
 			
 			model.addAttribute("errorMsg", "사용할 수 없는 ID 입니다.");
-			return "student/addStudent";
+			return "employee/student/addStudent";
 			
 		}
 		
 		int row = studentService.addStudent(student);
 		if(row == 0) {
 			model.addAttribute("errorMsg", "시스템 오류로 계정을 등록할 수 없습니다.");
-			return "student/addStudent";
+			return "employee/student/addStudent";
 		}
 		
-		return "redirect:/student/studentList";
+		return "redirect:/employee/studentList";
 		
 		
 	}
@@ -94,28 +79,26 @@ public class StudentController {
 	
 	
 	// 학생 목록
-	@GetMapping("/student/studentList")
-	public String studentList(HttpSession session, Model model
+	@GetMapping("/employee/studentList")
+	public String studentList(Model model
 								, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage
-								, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
+								, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage
+								, @RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
 
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
 		
-		List<Student> list = studentService.getStudentList(currentPage, rowPerPage);
+		List<Student> list = studentService.getStudentList(currentPage, rowPerPage, searchWord);
 		model.addAttribute("list", list);
 		
-		HashMap<String, Object> hm = studentService.getPage(currentPage, rowPerPage);
+		HashMap<String, Object> hm = studentService.getPage(currentPage, rowPerPage, searchWord);
 		
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("previousPage", (int) hm.get("previousPage"));
 		model.addAttribute("nextPage", (int) hm.get("nextPage"));
 		model.addAttribute("lastPage", (int) hm.get("lastPage"));
 		model.addAttribute("pageList", (ArrayList<Integer>) hm.get("pageList"));
 		
-		return "student/studentList";
+		return "employee/student/studentList";
 		
 	}
 	

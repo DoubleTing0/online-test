@@ -37,24 +37,28 @@ public class TeacherService {
 	
 	
 	// 선생님 목록
-	public List<Teacher> getTeacherList(int currentPage, int rowPerPage) {
+	public List<Teacher> getTeacherList(int currentPage, int rowPerPage, String searchWord) {
 		
 		int beginRow = Page.getBeginRow(currentPage, rowPerPage);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
 		
 		return teacherMapper.selectTeacherList(paramMap);
 		
 	}
 	
 	// 선생님 Page
-	public HashMap<String, Object> getPage(int currentPage, int rowPerPage) {
+	public HashMap<String, Object> getPage(int currentPage, int rowPerPage, String searchWord) {
 		
 		int pageLength = 10;
 		
-		int count = teacherMapper.countTeacher();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("searchWord", searchWord);
+		
+		int count = teacherMapper.countTeacher(paramMap);
 		
 		int previousPage = Page.getPreviousPage(currentPage, pageLength);
 		int nextPage = Page.getNextPage(currentPage, pageLength);

@@ -29,7 +29,7 @@
 		</div>
 		
 		<div>
-			<a href = "${pageContext.request.contextPath }/student/addStudent">학생 등록</a>
+			<a href = "${pageContext.request.contextPath }/employee/addStudent">학생 등록</a>
 		</div>
 		
 		<!-- 학생 목록 -->
@@ -47,13 +47,22 @@
 						<td>${s.studentId }</td>
 						<td>${s.studentName }</td>
 						<td>
-							<a href = "${pageContext.request.contextPath }/student/removeStudent?studentNo=${s.studentNo }">삭제</a>
+							<a href = "${pageContext.request.contextPath }/employee/removeStudent?studentNo=${s.studentNo }">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 		
+		<!-- 검색 시작 -->
+		<div>
+			<form method = "get" action = "${pageContext.request.contextPath }/employee/studentList">
+				<input type = "text" name = "searchWord">
+				<button type = "submit">이름검색</button>
+			</form>
+		</div>
+		
+		<!-- 검색 끝 -->		
 		
 		<!-- 페이지 처리 시작 -->
 		<div>
@@ -61,7 +70,7 @@
 				
 				<!-- 페이지 처음 -->
 				<li class="page-item">
-					<a class="page-link" href="${pageContext.request.contextPath }/student/studentList?currentPage=1">
+					<a class="page-link" href="${pageContext.request.contextPath }/employee/studentList?currentPage=1&searchWord=${searchWord}">
 						<span>처음</span>
 					</a>
 				</li>
@@ -69,7 +78,7 @@
 				<!-- 페이지 이전(-10의 1페이지) -->
 				<c:if test="${previousPage > 0}">
 					<li class="page-item">
-						<a class="page-link" href="${pageContext.request.contextPath }/student/studentList?currentPage=${previousPage}">
+						<a class="page-link" href="${pageContext.request.contextPath }/employee/studentList?currentPage=${previousPage}&searchWord=${searchWord}">
 							<span>이전</span>
 						</a>
 					</li>
@@ -89,7 +98,7 @@
 				
 					<!-- 마지막 페이지 까지만 출력 -->
 					<c:if test="${i <= lastPage }">
-						<a class="page-link" href="${pageContext.request.contextPath }/student/studentList?currentPage=${i}">
+						<a class="page-link" href="${pageContext.request.contextPath }/employee/studentList?currentPage=${i}&searchWord=${searchWord}">
 							<span>${i }</span>
 						</a>
 					</c:if>
@@ -101,7 +110,7 @@
 				<!-- 페이지 다음(+10의 1페이지) -->
 				<c:if test="${nextPage <= lastPage }">
 					<li class="page-item">
-						<a class="page-link" href="${pageContext.request.contextPath }/student/studentList?currentPage=${nextPage}">
+						<a class="page-link" href="${pageContext.request.contextPath }/employee/studentList?currentPage=${nextPage}&searchWord=${searchWord}">
 							<span>다음</span>
 						</a>
 					</li>
@@ -109,7 +118,7 @@
 		
 				<!-- 페이지 마지막 -->
 				<li class="page-item">
-					<a class="page-link" href="${pageContext.request.contextPath }/student/studentList?currentPage=${lastPage}">
+					<a class="page-link" href="${pageContext.request.contextPath }/employee/studentList?currentPage=${lastPage}&searchWord=${searchWord}">
 						<span>마지막</span>
 					</a>
 				</li>

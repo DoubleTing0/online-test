@@ -19,10 +19,10 @@ public interface TeacherMapper {
 	int insertTeacher(Teacher teacher);
 	
 	// 선생님 목록
-	List<Teacher> selectTeacherList(Map<String, Object> paramaMap);
+	List<Teacher> selectTeacherList(Map<String, Object> paramMap);
 	
 	// 선생님 count
-	int countTeacher();
+	int countTeacher(Map<String, Object> paramMap);
 	
 	
 	

@@ -33,10 +33,6 @@ public class EmployeeService {
 	}
 	
 	
-	public Employee login(Employee emp) {
-		return employeeMapper.login(emp);
-	}
-	
 	public int removeEmployee(int empNo) {
 		return employeeMapper.deleteEmployee(empNo);
 	}
@@ -50,24 +46,28 @@ public class EmployeeService {
 	
 	// 디펜던시 인젝션 : 스프링이 전체를 스캔해서 employeeMapper 찾아 bean 객체를 이용해 매칭시켜줌
 	// Autowired 애노테이션 없으면 employeeMapper 가 null 이 되고, 메서드 호출하면 nullPointException 발생.
-	public List<Employee> getEmployeeList(int currentPage, int rowPerPage) {
+	public List<Employee> getEmployeeList(int currentPage, int rowPerPage, String searchWord) {
 	
 		int beginRow = Page.getBeginRow(currentPage, rowPerPage);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
 		
 		return employeeMapper.selectEmployeeList(paramMap);
 		
 	}
 	
 	// 사원 page
-	public HashMap<String, Object> getPage(int currentPage, int rowPerPage) {
+	public HashMap<String, Object> getPage(int currentPage, int rowPerPage, String searchWord) {
 		
-		int pageLength = 10;
+		int pageLength = 10;	// 페이징 처리에 표시될 페이지 갯수 1~10
 		
-		int count = employeeMapper.countEmployee();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("searchWord", searchWord);
+		
+		int count = employeeMapper.countEmployee(paramMap);
 		
 		int previousPage = Page.getPreviousPage(currentPage, pageLength);
 		int nextPage = Page.getNextPage(currentPage, pageLength);

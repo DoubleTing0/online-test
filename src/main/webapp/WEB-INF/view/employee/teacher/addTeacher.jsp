@@ -12,31 +12,31 @@
 	
 	<body>
 		<div>
-			<h1>학생 등록</h1>
+			<h1>선생님 등록</h1>
 		</div>
-
+		
 		<div>
-			<form method = "post" action = "${pageContext.request.contextPath }/student/addStudent">
+			<form method = "post" action = "${pageContext.request.contextPath }/employee/addTeacher">
 				<div>
 					<table border = "1">
 						<tr>
 							<th>ID</th>
 							<td>
-								<input type = "text" name = "studentId">
+								<input type = "text" name = "teacherId">
 							</td>
 						</tr>
-					
+						
 						<tr>
 							<th>Password</th>
 							<td>
-								<input type = "password" name = "studentPw">
+								<input type = "password" name = "teacherPw">
 							</td>
 						</tr>
-					
+						
 						<tr>
 							<th>Name</th>
 							<td>
-								<input type = "text" name = "studentName">
+								<input type = "text" name = "teacherName">
 							</td>
 						</tr>
 					</table>
@@ -45,8 +45,9 @@
 				<div>
 					<button type = "submit">등록</button>
 				</div>
+
 			
 			</form>
-		</div>		
+		</div>
 	</body>
 </html>

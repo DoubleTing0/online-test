@@ -28,47 +28,33 @@ public class TeacherController {
 	private IdService idService;
 	
 	// 선생님 삭제 Get
-	@GetMapping("/teacher/removeTeacher")
-	public String removeTeacher(HttpSession session, Model model
+	@GetMapping("/employee/removeTeacher")
+	public String removeTeacher(Model model
 								, @RequestParam("teacherNo") int teacherNo) {
 		
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
 		
 		int row = teacherService.removeTeacher(teacherNo);
 		
 		if(row == 0) {
 			model.addAttribute("errorMsg", "시스템 오류로 삭제 할 수 없습니다.");
-			return "teacher/teacherList";
+			return "employee/teacher/teacherList";
 		}
 		
-		return "redirect:/teacher/teacherList";
+		return "redirect:/employee/teacherList";
 		
 	}
 	
 	// 선생님 등록 Get
-	@GetMapping("/teacher/addTeacher")
-	public String addTeacher(HttpSession session) {
+	@GetMapping("/employee/addTeacher")
+	public String addTeacher() {
 		
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
-		
-		return "teacher/addTeacher";
+		return "employee/teacher/addTeacher";
 		
 	}
 	
 	// 선생님 등록 Post
-	@PostMapping("/teacher/addTeacher")
-	public String addTeacher(HttpSession session, Model model, Teacher teacher) {
-		
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
+	@PostMapping("/employee/addTeacher")
+	public String addTeacher(Model model, Teacher teacher) {
 		
 		String idCheck = idService.getIdCheck(teacher.getTeacherId());
 		
@@ -76,7 +62,7 @@ public class TeacherController {
 		if(idCheck != null) {
 			
 			model.addAttribute("errorMsg", "사용할 수 없는 ID 입니다.");
-			return "teacher/addTeacher";
+			return "employee/teacher/addTeacher";
 			
 		}
 		
@@ -84,12 +70,12 @@ public class TeacherController {
 		if(row == 0) {
 			
 			model.addAttribute("errorMsg", "시스템 오류로 계정을 등록할 수 없습니다.");
-			return " teacher/addTeacher";
+			return "employee/teacher/addTeacher";
 			
 		}
 		
 		
-		return "redirect:/teacher/teacherList";
+		return "redirect:/employee/teacherList";
 		
 		
 	}
@@ -97,28 +83,25 @@ public class TeacherController {
 	
 	
 	// 선생님 목록
-	@GetMapping("/teacher/teacherList")
-	public String teacherList(HttpSession session, Model model
+	@GetMapping("/employee/teacherList")
+	public String teacherList(Model model
 								, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage
-								, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
+								, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage
+								, @RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
 		
-		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
-		
-		List<Teacher> list = teacherService.getTeacherList(currentPage, rowPerPage);
+		List<Teacher> list = teacherService.getTeacherList(currentPage, rowPerPage, searchWord);
 		model.addAttribute("list", list);
 		
-		HashMap<String, Object> hm = teacherService.getPage(currentPage, rowPerPage);
+		HashMap<String, Object> hm = teacherService.getPage(currentPage, rowPerPage, searchWord);
 		
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("previousPage", (int) hm.get("previousPage"));
 		model.addAttribute("nextPage", (int) hm.get("nextPage"));
 		model.addAttribute("lastPage", (int) hm.get("lastPage"));
 		model.addAttribute("pageList", (ArrayList<Integer>) hm.get("pageList"));
 		
-		return "teacher/teacherList";
+		return "employee/teacher/teacherList";
 		
 	}
 	
