@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Employee;
+import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Teacher;
 
 @Controller
@@ -26,6 +27,37 @@ public class TeacherController {
 	
 	@Autowired
 	private IdService idService;
+	
+	// 선생님 비밀번호 변경 Get
+	@GetMapping("/teacher/modifyTeacherPw")
+	public String modifyTeacherPw() {
+		
+		return "teacher/modifyTeacherPw";
+		
+	}
+	
+	// 선생님 비밀번호 변경 Post
+	@PostMapping("/teacher/modifyTeacherPw")
+	public String modifyTeacherPw(HttpSession session, Model model
+								, @RequestParam(value = "newPw") String newPw
+								, @RequestParam(value = "oldPw", required = true) String oldPw) {	
+								// required = true : null 값 불가 default 옵션
+		
+		Teacher loginTeacher = (Teacher) session.getAttribute("loginTeacher");
+		
+		int row = teacherService.updateTeacherPw(loginTeacher.getTeacherNo(), oldPw, newPw);
+
+		if(row == 0) {
+			// 변경 실패시
+			model.addAttribute("errorMsg", "비밀번호를 변경할 수 없습니다.");
+			return "teacher/modifyTeacherPw";
+			
+		}
+		
+		return "redirect:/logout";
+		
+		
+	}	
 	
 	// 선생님 삭제 Get
 	@GetMapping("/employee/removeTeacher")

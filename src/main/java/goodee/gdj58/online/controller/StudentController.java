@@ -27,6 +27,37 @@ public class StudentController {
 	@Autowired
 	private IdService idService;
 	
+	// 학생 비밀번호 변경 Get
+	@GetMapping("/student/modifyStudentPw")
+	public String modifyStudentPw() {
+		
+		return "student/modifyStudentPw";
+		
+	}
+	
+	// 학생 비밀번호 변경 Post
+	@PostMapping("/student/modifyStudentPw")
+	public String modifyStudentPw(HttpSession session, Model model
+								, @RequestParam(value = "newPw") String newPw
+								, @RequestParam(value = "oldPw", required = true) String oldPw) {	
+								// required = true : null 값 불가 default 옵션
+		
+		Student loginStudent = (Student) session.getAttribute("loginStudent");
+		
+		int row = studentService.updateStudentPw(loginStudent.getStudentNo(), oldPw, newPw);
+
+		if(row == 0) {
+			// 변경 실패시
+			model.addAttribute("errorMsg", "비밀번호를 변경할 수 없습니다.");
+			return "student/modifyStudentPw";
+			
+		}
+		
+		return "redirect:/logout";
+		
+		
+	}	
+	
 	// 학생 삭제 Get
 	@GetMapping("employee/removeStudent")
 	public String removeStudent(Model model

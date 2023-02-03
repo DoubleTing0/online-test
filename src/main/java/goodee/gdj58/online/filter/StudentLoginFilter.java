@@ -21,7 +21,7 @@ public class StudentLoginFilter extends HttpFilter implements Filter {
        
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-    	log.debug("\u001B[31m" + "TeacherLoginFilter 실행");
+    	log.debug("\u001B[31m" + "StudentLoginFilter 실행");
     	
     	if(request instanceof HttpServletRequest) {
     		// ServletRequest request 가 HttpServletRequest로 형변환이 가능할때
@@ -30,7 +30,7 @@ public class StudentLoginFilter extends HttpFilter implements Filter {
     		HttpServletRequest req = (HttpServletRequest) request;
     		
     		HttpSession session =  req.getSession();
-    		if(session.getAttribute("loginTeacher") == null) {
+    		if(session.getAttribute("loginStudent") == null) {
     			// 이미 상위 if에서 웹 요청 검사 했기에 여기선 안해도 됨.
     			
     			((HttpServletResponse) response).sendRedirect(req.getContextPath() + "/login");

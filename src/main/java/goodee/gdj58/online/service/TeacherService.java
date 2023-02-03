@@ -20,6 +20,19 @@ public class TeacherService {
 	@Autowired
 	private TeacherMapper teacherMapper;
 	
+	// 선생님 비밀번호 변경
+	public int updateTeacherPw(int teacherNo, String oldPw, String newPw) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("teacherNo", teacherNo);
+		paramMap.put("oldPw", oldPw);
+		paramMap.put("newPw", newPw);
+		
+		return teacherMapper.updateTeacherPw(paramMap);		
+		
+	}	
+	
 	// 선생님 삭제
 	public int removeTeacher(int teacherNo) {
 		
