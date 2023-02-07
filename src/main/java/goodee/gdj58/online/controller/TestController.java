@@ -18,7 +18,7 @@ public class TestController {
 	@Autowired
 	private TestService testService;
 	
-	// 시험 한개 보기
+	// 시험 한개 문제&보기 출력(선생님)
 	@GetMapping("/teacher/test/testOne")
 	public String testOne(Model model
 							, @RequestParam("testNo") int testNo) {

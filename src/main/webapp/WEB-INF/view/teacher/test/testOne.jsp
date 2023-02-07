@@ -93,32 +93,53 @@
 			</form>
 		</div>
 		
-		
-		<c:forEach var="t" items="${testOneList }">
-			<div>
-				<span>${t.questionIdx }번 </span>
-				<span>${t.questionTitle }</span>
-			</div>
+		<div>
+			<table border = "1">
+				<c:forEach var="t" items="${testOneList }">
+					<tr>
+						<td>${t.questionIdx }번</td>
+						
+						<td colspan = "2">${t.questionTitle }</td>
+						<td rowspan = "5">
+							<a href = "${pageContext.request.contextPath }/teacher/question/modifyQuestion?questionNo=${t.questionNo}&exampleNo1=${t.exampleNo1 }&exampleNo2=${t.exampleNo2 }&exampleNo3=${t.exampleNo3 }&exampleNo4=${t.exampleNo4 }">수정</a>						
+						</td>
+						<td rowspan = "5">
+							<a href = "${pageContext.request.contextPath }/teacher/question/removeQuestion?testNo=${t.testNo }&questionNo=${t.questionNo}&exampleNo1=${t.exampleNo1 }&exampleNo2=${t.exampleNo2 }&exampleNo3=${t.exampleNo3 }&exampleNo4=${t.exampleNo4 }">삭제</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>(1)</td>
+						<td>${t.exampleTitle1 }</td>
+						<td>${t.answer1 }</td>
+					</tr>
+					
+					<tr>
+						<td>(2)</td>
+						<td>${t.exampleTitle2 }</td>
+						<td>${t.answer2 }</td>
+					</tr>
+					
+					<tr>
+						<td>(3)</td>
+						<td>${t.exampleTitle3 }</td>
+						<td>${t.answer3 }</td>
+					</tr>
+					
+					<tr>
+						<td>(4)</td>
+						<td>${t.exampleTitle4 }</td>
+						<td>${t.answer4 }</td>
+					</tr>
+					
+					<tr>
+						<td colspan = "4">&nbsp;</td>
+					</tr>
+				
+				</c:forEach>
 			
-			<div>
-				<span>(1) ${t.exampleIdx1 }</span>
-			</div>
-			
-			<div>
-				<span>(2) ${t.exampleIdx2 }</span>
-			</div>
-			
-			<div>
-				<span>(3) ${t.exampleIdx3 }</span>
-			</div>
-			
-			<div>
-				<span>(4) ${t.exampleIdx4 }</span>
-			</div>
-			
-			<div>&ensp;</div>
-		
-		</c:forEach>
+			</table>
+		</div>
 		
 		
 		

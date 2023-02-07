@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.TestMapper">
 
-	<!-- 시험 한개 보기 -->
+	<!-- 시험 한개 문제&보기 출력(선생님) -->
 	<select id = "selectTestOne"
 			parameterType = "java.util.Map"
 			resultType = "java.util.Map">
@@ -11,12 +11,17 @@
 			a.test_no testNo
 			, a.test_title testTitle
 			, a.test_date testDate
+			, a.question_no questionNo
 			, a.question_idx questionIdx
 			, a.question_title questionTitle
-			, MAX(if(a.example_idx = 1, a.example_title, 0)) exampleIdx1
-			, MAX(if(a.example_idx = 2, a.example_title, 0)) exampleIdx2
-			, MAX(if(a.example_idx = 3, a.example_title, 0)) exampleIdx3
-			, MAX(if(a.example_idx = 4, a.example_title, 0)) exampleIdx4
+			, MAX(if(a.example_idx = 1, a.example_no, 0)) exampleNo1
+			, MAX(if(a.example_idx = 2, a.example_no, 0)) exampleNo2
+			, MAX(if(a.example_idx = 3, a.example_no, 0)) exampleNo3
+			, MAX(if(a.example_idx = 4, a.example_no, 0)) exampleNo4
+			, MAX(if(a.example_idx = 1, a.example_title, 0)) exampleTitle1
+			, MAX(if(a.example_idx = 2, a.example_title, 0)) exampleTitle2
+			, MAX(if(a.example_idx = 3, a.example_title, 0)) exampleTitle3
+			, MAX(if(a.example_idx = 4, a.example_title, 0)) exampleTitle4
 			, MAX(if(a.example_idx = 1, a.answer, 0)) answer1
 			, MAX(if(a.example_idx = 2, a.answer, 0)) answer2
 			, MAX(if(a.example_idx = 3, a.answer, 0)) answer3
@@ -26,8 +31,10 @@
 				t.test_no
 				, t.test_title
 				, t.test_date
+				, q.question_no
 				, q.question_idx
 				, q.question_title
+				, e.example_no
 				, e.example_idx
 				, e.example_title
 				, e.answer
@@ -36,9 +43,9 @@
 				ON t.test_no = q.test_no
 				INNER JOIN example e
 				ON q.question_no = e.question_no
-			WHERE t.test_no = #{testNo}
+			WHERE t.test_no = 1
 			ORDER BY q.question_idx ASC, example_idx ASC) a
-		GROUP BY a.question_idx
+		GROUP BY a.question_idx		
 			
 	</select>
 

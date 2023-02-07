@@ -18,7 +18,7 @@ public class TestService {
 	@Autowired
 	private TestMapper testMapper;
 	
-	// 시험 한개 보기
+	// 시험 한개 문제&보기 출력(선생님)
 	public List<Map<String, Object>> getTestOne(int testNo) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();

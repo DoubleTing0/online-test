@@ -11,7 +11,7 @@ import goodee.gdj58.online.vo.Test;
 public interface TestMapper {
 
 	
-	// 시험 한개 보기
+	// 시험 한개 문제&보기 출력(선생님)
 	List<Map<String, Object>> selectTestOne(Map<String, Object> paramMap);
 	
 	// 시험 목록
