@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.online.mapper.QuestionMapper">
+
+	<!-- 추가한 문제의 questionNo 가져오기 -->
+	<select id = "selectQuestionNo"
+			parameterType = "goodee.gdj58.online.vo.Question"
+			resultType = "int">
+		
+		SELECT
+			question_no questionNo
+		FROM question
+		WHERE test_no = #{testNo}
+			AND question_idx = #{questionIdx}
+			
+	</select>
+
+	<!-- 문제 추가 -->
+	<insert id = "insertQuestion"
+			parameterType = "goodee.gdj58.online.vo.Question">
+		
+		INSERT INTO question (
+			test_no
+			, question_idx
+			, question_title
+		) VALUES (
+			#{testNo}
+			, #{questionIdx}
+			, #{questionTitle}
+		)
+			
+	</insert>
+	
+
+</mapper>

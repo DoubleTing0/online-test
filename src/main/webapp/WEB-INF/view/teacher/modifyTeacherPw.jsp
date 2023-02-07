@@ -11,6 +11,10 @@
 	</head>
 	
 	<body>
+	
+		<!-- 선생님 메뉴 -->
+		<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>		
+	
 		<div>
 			<h1>${loginTeacher.teacherName }님 비밀번호 수정</h1>
 		</div>

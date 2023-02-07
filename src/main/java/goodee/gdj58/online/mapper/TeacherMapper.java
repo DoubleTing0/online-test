@@ -1,5 +1,6 @@
 package goodee.gdj58.online.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,11 @@ import goodee.gdj58.online.vo.Teacher;
 @Mapper
 public interface TeacherMapper {
 
+	
+	// hashmap test
+	List<Map<String, Object>> getHashMap();
+	
+	
 	// 선생님 비밀번호 변경
 	int updateTeacherPw(Map<String, Object> paramMap);
 	

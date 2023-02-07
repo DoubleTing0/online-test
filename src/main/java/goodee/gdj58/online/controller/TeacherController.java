@@ -3,6 +3,7 @@ package goodee.gdj58.online.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.IdService;
 import goodee.gdj58.online.service.TeacherService;
-import goodee.gdj58.online.vo.Employee;
-import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Teacher;
 
 @Controller
@@ -27,6 +26,17 @@ public class TeacherController {
 	
 	@Autowired
 	private IdService idService;
+	
+	// Hashmap test
+	@GetMapping("/test/test")
+	public String getHashMap(HttpSession session, Model model) {
+		
+		List<Map<String, Object>> list = teacherService.getHashMap();
+		
+		model.addAttribute("list", list);
+		
+		return "test";
+	}
 	
 	// 선생님 비밀번호 변경 Get
 	@GetMapping("/teacher/modifyTeacherPw")

@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.TeacherMapper">
+	
 
+	<!-- hashMap test -->
+	<select id = "getHashMap" resultType = "java.util.Map">
+
+		SELECT
+			t.test_no
+			, t.test_title
+			, t.test_date
+			, q.question_no
+			, q.test_no
+			, q.question_idx 
+			, q.question_title
+			, e.example_no
+			, e.question_no
+			, e.example_idx
+			, e.example_title
+			, e.answer answer
+		FROM question q
+			INNER JOIN EXAMPLE e
+			ON q.question_no = e.question_no
+			INNER JOIN test t
+			ON t.test_no = q.test_no
+	
+	</select>
+	
+	
 	<!-- 선생님 비밀번호 변경 -->
 	<update id = "updateTeacherPw"
 			parameterType = "java.util.Map">

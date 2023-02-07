@@ -9,5 +9,27 @@
 </head>
 <body>
 	test page
+	<div>
+		<c:forEach var="x" items="${list }">
+		
+			<c:if test="${x.tTestNo == x.qTestNo }">
+				<div>${x.qQuestionIdx }</div>
+			
+			
+			
+			
+			
+			</c:if>
+		
+		
+		
+		
+		
+		
+		
+		</c:forEach>
+		
+	
+	</div>
 </body>
 </html>

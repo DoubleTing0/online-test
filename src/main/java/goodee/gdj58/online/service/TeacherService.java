@@ -19,6 +19,13 @@ public class TeacherService {
 
 	@Autowired
 	private TeacherMapper teacherMapper;
+
+	// HashMap test
+	public List<Map<String, Object>> getHashMap() {
+		
+		return teacherMapper.getHashMap(); 
+	}
+	
 	
 	// 선생님 비밀번호 변경
 	public int updateTeacherPw(int teacherNo, String oldPw, String newPw) {
