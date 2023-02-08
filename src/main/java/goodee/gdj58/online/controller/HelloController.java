@@ -2,9 +2,14 @@ package goodee.gdj58.online.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class HelloController {
 	
@@ -43,6 +48,54 @@ public class HelloController {
 		return mv;
 		
 	}
+	
+	@GetMapping("/test5")
+	public String test5() {
+		
+		return "test";
+		
+	}
+	
+	@PostMapping("/test5")
+	public String test5(@RequestParam("checkbox") String[] arr) {
+		
+		log.debug("\u001B[31m" + arr + " <-- arr");
+		
+		for(String s : arr) {
+			log.debug("\u001B[31m" + s + " <-- s"); 
+					
+		}
+		
+		
+		return "test";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

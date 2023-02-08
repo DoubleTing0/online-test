@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.online.mapper.PaperMapper">
+
+	<!-- 학생이 본 시험의 정답 가져오기 -->
+	<select id = "selectAnswerList"
+			parameterType = "int"
+			resultType = "java.lang.String">
+		
+		SELECT a.answer
+		FROM
+			(SELECT
+				t.test_no
+				, t.test_title
+				, t.test_date
+				, q.question_idx
+				, q.question_title
+				, e.example_idx
+				, e.example_title
+				, e.answer
+			FROM test t
+				INNER JOIN question q
+				ON t.test_no = q.test_no
+				INNER JOIN example e
+				ON q.question_no = e.question_no
+			WHERE t.test_no = #{testNo}
+			ORDER BY q.question_idx ASC, example_idx ASC) a
+
+	</select>
+
+
+	<!-- 학생이 본 시험 답 저장 -->
+	<insert id = "insertPaper"
+			parameterType = "goodee.gdj58.online.vo.Paper">
+	
+		INSERT INTO paper (
+			student_no
+			, question_no
+			, answer
+		) VALUES (
+			#{studentNo}
+			, #{questionNo}
+			, #{answer}
+		)
+			
+	</insert>
+			
+
+
+
+</mapper>

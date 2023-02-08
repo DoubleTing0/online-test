@@ -2,7 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.TestMapper">
 
-	<!-- 시험 한개 문제&보기 출력(선생님) -->
+	<!-- 학생 응시가능한 시험 목록 -->
+	<select id = "selectStudentTestList" 
+			resultType="goodee.gdj58.online.vo.Test">
+			
+		SELECT
+			test_no testNo
+			, test_title testTitle
+			, test_date testDate
+		FROM test
+		WHERE test_date = CURDATE()
+			
+	</select>	
+
+	<!-- 시험 수정 -->
+	<update id = "updateTest"
+			parameterType = "goodee.gdj58.online.vo.Test">
+	
+		UPDATE test
+		SET test_title = #{testTitle}
+		WHERE test_no = #{testNo}
+			
+	</update>
+
+	<!-- 시험 1개 보기(testTitle) -->
+	<select id = "selectTestTitle"
+			parameterType = "int"
+			resultType = "goodee.gdj58.online.vo.Test">
+	
+		SELECT
+			test_no testNo
+			, test_title testTitle
+		FROM test
+		WHERE test_no = #{testNo}
+			
+	</select>
+
+	<!-- 시험 등록 -->
+	<insert id = "insertTest"
+			parameterType = "goodee.gdj58.online.vo.Test">
+	
+		INSERT INTO test (
+			test_title
+			, test_date
+		) VALUES (
+			#{testTitle}
+			, CURDATE()
+		)
+			
+	</insert>
+
+	<!-- 시험 한개 문제&보기 출력 -->
 	<select id = "selectTestOne"
 			parameterType = "java.util.Map"
 			resultType = "java.util.Map">
@@ -43,7 +93,7 @@
 				ON t.test_no = q.test_no
 				INNER JOIN example e
 				ON q.question_no = e.question_no
-			WHERE t.test_no = 1
+			WHERE t.test_no = #{testNo}
 			ORDER BY q.question_idx ASC, example_idx ASC) a
 		GROUP BY a.question_idx		
 			

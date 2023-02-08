@@ -15,7 +15,7 @@
 		<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
 		
 		<div>
-			<h1>${testOneList.get(0).testTitle } 시험 관리</h1>
+			<h1>시험지 만들기</h1>
 		</div>
 		
 		<!-- 문제 추가 -->
@@ -24,7 +24,7 @@
 		</div>
 		
 		<div>
-			<form method = "post" action = "${pageContext.request.contextPath }/teacher/question/addQuestion?testNo=${testOneList.get(0).testNo}">
+			<form method = "post" action = "${pageContext.request.contextPath }/teacher/question/addQuestion?testNo=${testNo}">
 				<div>
 					<table>
 						<tr>
@@ -93,53 +93,56 @@
 			</form>
 		</div>
 		
-		<div>
-			<table border = "1">
-				<c:forEach var="t" items="${testOneList }">
-					<tr>
-						<td>${t.questionIdx }번</td>
+		<c:if test="${testOneList != null }">
+		
+			<div>
+				<table border = "1">
+					<c:forEach var="t" items="${testOneList }">
+						<tr>
+							<td>${t.questionIdx }번</td>
+							
+							<td colspan = "2">${t.questionTitle }</td>
+							<td rowspan = "5">
+								<a href = "${pageContext.request.contextPath }/teacher/question/modifyQuestion?questionNo=${t.questionNo}&exampleNo1=${t.exampleNo1 }&exampleNo2=${t.exampleNo2 }&exampleNo3=${t.exampleNo3 }&exampleNo4=${t.exampleNo4 }">수정</a>						
+							</td>
+							<td rowspan = "5">
+								<a href = "${pageContext.request.contextPath }/teacher/question/removeQuestion?testNo=${t.testNo }&questionNo=${t.questionNo}&exampleNo1=${t.exampleNo1 }&exampleNo2=${t.exampleNo2 }&exampleNo3=${t.exampleNo3 }&exampleNo4=${t.exampleNo4 }">삭제</a>
+							</td>
+						</tr>
 						
-						<td colspan = "2">${t.questionTitle }</td>
-						<td rowspan = "5">
-							<a href = "${pageContext.request.contextPath }/teacher/question/modifyQuestion?questionNo=${t.questionNo}&exampleNo1=${t.exampleNo1 }&exampleNo2=${t.exampleNo2 }&exampleNo3=${t.exampleNo3 }&exampleNo4=${t.exampleNo4 }">수정</a>						
-						</td>
-						<td rowspan = "5">
-							<a href = "${pageContext.request.contextPath }/teacher/question/removeQuestion?testNo=${t.testNo }&questionNo=${t.questionNo}&exampleNo1=${t.exampleNo1 }&exampleNo2=${t.exampleNo2 }&exampleNo3=${t.exampleNo3 }&exampleNo4=${t.exampleNo4 }">삭제</a>
-						</td>
-					</tr>
+						<tr>
+							<td>(1)</td>
+							<td>${t.exampleTitle1 }</td>
+							<td>${t.answer1 }</td>
+						</tr>
+						
+						<tr>
+							<td>(2)</td>
+							<td>${t.exampleTitle2 }</td>
+							<td>${t.answer2 }</td>
+						</tr>
+						
+						<tr>
+							<td>(3)</td>
+							<td>${t.exampleTitle3 }</td>
+							<td>${t.answer3 }</td>
+						</tr>
+						
+						<tr>
+							<td>(4)</td>
+							<td>${t.exampleTitle4 }</td>
+							<td>${t.answer4 }</td>
+						</tr>
+						
+						<tr>
+							<td colspan = "5">&nbsp;</td>
+						</tr>
 					
-					<tr>
-						<td>(1)</td>
-						<td>${t.exampleTitle1 }</td>
-						<td>${t.answer1 }</td>
-					</tr>
-					
-					<tr>
-						<td>(2)</td>
-						<td>${t.exampleTitle2 }</td>
-						<td>${t.answer2 }</td>
-					</tr>
-					
-					<tr>
-						<td>(3)</td>
-						<td>${t.exampleTitle3 }</td>
-						<td>${t.answer3 }</td>
-					</tr>
-					
-					<tr>
-						<td>(4)</td>
-						<td>${t.exampleTitle4 }</td>
-						<td>${t.answer4 }</td>
-					</tr>
-					
-					<tr>
-						<td colspan = "4">&nbsp;</td>
-					</tr>
+					</c:forEach>
 				
-				</c:forEach>
-			
-			</table>
-		</div>
+				</table>
+			</div>
+		</c:if>
 		
 		
 		

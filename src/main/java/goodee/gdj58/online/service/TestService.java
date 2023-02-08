@@ -18,7 +18,35 @@ public class TestService {
 	@Autowired
 	private TestMapper testMapper;
 	
-	// 시험 한개 문제&보기 출력(선생님)
+	// 학생 응시가능한 시험 목록
+	public List<Test> getStudentTestList() {
+		
+		return testMapper.selectStudentTestList();		
+		
+	}
+	
+	// 시험 수정
+	public int modifyTest(Test test) {
+		
+		return testMapper.updateTest(test);
+		
+	}
+	
+	// 시험 1개 보기(testTitle)
+	public Test getTestTitle(int testNo) {
+		
+		return testMapper.selectTestTitle(testNo);
+		
+	}
+	
+	// 시험 등록
+	public int addTest(Test test) {
+		
+		return testMapper.insertTest(test);
+		
+	}
+	
+	// 시험 한개 문제&보기 출력
 	public List<Map<String, Object>> getTestOne(int testNo) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
