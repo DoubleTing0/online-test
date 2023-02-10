@@ -30,7 +30,7 @@
 						<td>${s.score }</td>
 						<td>${s.testDate }</td>
 						<td>
-							<a href = "">확인</a>
+							<a href = "${pageContext.request.contextPath }/student/paper/checkPaper?testNo=${s.testNo}">확인</a>
 						</td>
 					</tr>
 				</c:forEach>

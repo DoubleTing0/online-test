@@ -35,7 +35,7 @@ public class TestController {
 		
 		model.addAttribute("testOneList", list);
 		
-		log.debug("\u001B[31m" + list.toString() + " <-- list");		
+		log.debug("\u001B[31m" + list.toString() + " <-- list");
 		
 		return "student/test/testOne";
 		

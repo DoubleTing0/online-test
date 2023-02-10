@@ -1,5 +1,6 @@
 package goodee.gdj58.online.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import goodee.gdj58.online.mapper.PaperMapper;
 import goodee.gdj58.online.mapper.QuestionMapper;
 import goodee.gdj58.online.mapper.ScoreMapper;
+import goodee.gdj58.online.mapper.TestMapper;
 import goodee.gdj58.online.vo.Paper;
 import goodee.gdj58.online.vo.Score;
 
@@ -25,6 +27,37 @@ public class PaperService {
 	
 	@Autowired
 	private ScoreMapper scoreMapper;
+	
+	@Autowired
+	private TestMapper testMapper;
+	
+	// 학생이 제출한 답 가져오기 및 시험 문제&보기 가져오기
+	public Map<String, Object> getTestAndPaper(int testNo, int studentNo) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		// 제출한 답 구하기 위한 매개변수
+		Map<String, Object> paperMap = new HashMap<>();
+		paperMap.put("testNo", testNo);
+		paperMap.put("studentNo", studentNo);
+		
+		// 제출한 답
+		List<Paper> paperList = paperMapper.selectPaperList(paperMap);
+		
+		// 시험 문제&보기 구하기 위한 매개변수
+		Map<String, Object> testMap = new HashMap<>();
+		testMap.put("testNo", testNo);
+		
+		// 시험 문제&보기
+		List<Map<String, Object>> testOne = testMapper.selectTestOne(testMap);
+		
+		// 리턴 map 에 담기
+		map.put("paperList", paperList);
+		map.put("testOne", testOne);
+		
+		return map;
+		
+	}
 	
 	// 학생이 제출한 답 추가 & 채점 후 점수 등록
 	public int addAndCheckPaper(Map<String, Object> paramMap) {

@@ -11,7 +11,9 @@
 	</head>
 	
 	<body>
-		
+		<c:forEach var="t" items="${testOne }">
+			${t.answer1 }
+		</c:forEach>
 		
 	</body>
 </html>
