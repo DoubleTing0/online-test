@@ -7,7 +7,7 @@
 			오늘날짜 시험 리스트는 응시버턴 - 시험지출력(table : question x example) - 답안지제출(table : paper)
 		-->
 	<a href="${pageContext.request.contextPath}/student/test/testList">시험 응시</a>
-	<a href="${pageContext.request.contextPath}">시험 확인</a>
+	<a href="${pageContext.request.contextPath}/student/score/scoreList">지난 시험 확인</a>
 	
 </div>
 

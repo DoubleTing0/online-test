@@ -21,6 +21,10 @@
 					testTitle : 
 					<input type = "text" name = "testTitle">
 				</div>
+				<div>
+					testDate : 
+					<input type = "date" name = "testDate">
+				</div>
 				
 				<div>
 					<button type = "submit">등록</button>

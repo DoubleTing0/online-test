@@ -19,9 +19,9 @@ public class TestService {
 	private TestMapper testMapper;
 	
 	// 학생 응시가능한 시험 목록
-	public List<Test> getStudentTestList() {
+	public List<Test> getStudentTestList(int studentNo) {
 		
-		return testMapper.selectStudentTestList();		
+		return testMapper.selectStudentTestList(studentNo);		
 		
 	}
 	

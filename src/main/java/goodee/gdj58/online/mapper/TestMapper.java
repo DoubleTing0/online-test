@@ -11,7 +11,7 @@ import goodee.gdj58.online.vo.Test;
 public interface TestMapper {
 
 	// 학생 응시가능한 시험 목록
-	List<Test> selectStudentTestList();
+	List<Test> selectStudentTestList(int studentNo);
 	
 	// 시험 수정
 	int updateTest(Test test);

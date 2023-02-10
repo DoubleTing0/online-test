@@ -3,6 +3,8 @@ package goodee.gdj58.online.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.TestService;
+import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,9 +44,11 @@ public class TestController {
 	
 	// 학생 응시가능한 시험 목록
 	@GetMapping("/student/test/testList")
-	public String studentTestList(Model model) {
+	public String studentTestList(Model model, HttpSession session) {
 		
-		List<Test> list = testService.getStudentTestList();
+		Student loginStudent = (Student) session.getAttribute("loginStudent"); 
+		
+		List<Test> list = testService.getStudentTestList(loginStudent.getStudentNo());
 		
 		model.addAttribute("testList", list);
 		
@@ -90,10 +95,12 @@ public class TestController {
 	}
 	
 	@PostMapping("/teacher/test/addTest")
-	public String addTest(@RequestParam("testTitle") String testTitle) {
+	public String addTest(@RequestParam("testTitle") String testTitle
+						, @RequestParam("testDate") String testDate) {
 		
 		Test test = new Test();
 		test.setTestTitle(testTitle);
+		test.setTestDate(testDate);
 		
 		testService.addTest(test);
 		
