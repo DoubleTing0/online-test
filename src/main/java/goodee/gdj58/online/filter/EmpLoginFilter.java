@@ -46,7 +46,6 @@ public class EmpLoginFilter extends HttpFilter implements Filter {
     		
     		log.debug("웹브라우저 요청만 허용합니다.");
     		
-    		
     	}
     	
 		// controller 전
